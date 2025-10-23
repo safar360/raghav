@@ -1,0 +1,27 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="40" cy="40" r="35" fill="#D97706" opacity="0.1"/>
+  
+  <!-- Temple dome -->
+  <path d="M25 25 L40 15 L55 25 L55 45 L25 45 Z" fill="#D97706"/>
+  
+  <!-- Temple base -->
+  <rect x="20" y="45" width="40" height="15" fill="#B45309"/>
+  
+  <!-- Temple pillars -->
+  <rect x="22" y="35" width="3" height="10" fill="#DC2626"/>
+  <rect x="30" y="35" width="3" height="10" fill="#DC2626"/>
+  <rect x="38" y="35" width="3" height="10" fill="#DC2626"/>
+  <rect x="46" y="35" width="3" height="10" fill="#DC2626"/>
+  <rect x="54" y="35" width="3" height="10" fill="#DC2626"/>
+  
+  <!-- Sacred symbol (Om) -->
+  <circle cx="40" cy="30" r="8" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <path d="M35 30 Q40 25 45 30" stroke="#FFD700" stroke-width="2" fill="none"/>
+  
+  <!-- Text -->
+  <text x="80" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1F2937">Raghav Temple</text>
+  <text x="80" y="50" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Divine Blessings</text>
+</svg>
+
+
