@@ -3,8 +3,7 @@ name: Deploy Raghav Temple Website to GitHub Pages
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,24 +20,74 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: Set up Node.js (optional)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (if package.json exists)
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "package.json found -> installing dependencies"
+            if [ -f package-lock.json ]; then
+              npm ci
+            else
+              npm install
+            fi
+          else
+            echo "no package.json — skipping npm install"
+          fi
+
+      - name: Run build (if applicable)
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "Running npm run build (if present)"
+            npm run build --if-present
+          fi
+          # Add other build commands here if required (hugo, jekyll, etc.)
+
+      - name: Locate build output directory
+        id: find
+        shell: bash
+        run: |
+          for d in build dist public _site; do
+            if [ -d "$d" ]; then
+              echo "Found build output: $d"
+              echo "path=$d" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+          if [ -f index.html ]; then
+            echo "No build dir found, but index.html exists in repo root — deploying root"
+            echo "path=." >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "path=" >> "$GITHUB_OUTPUT"
+
+      - name: Fail if no site files found
+        if: ${{ steps.find.outputs.path == '' }}
+        run: |
+          echo "No build output found (checked build, dist, public, _site, and repo root)."
+          echo "Ensure the build step produced files in one of those directories or add the correct path."
+          exit 1
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
-          
+          path: ${{ steps.find.outputs.path }}
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-
