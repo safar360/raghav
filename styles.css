@@ -164,12 +164,15 @@ p {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    min-width: 0;
+    flex-shrink: 0;
 }
 
 .logo-img {
     height: 40px;
     width: auto;
     transition: transform var(--transition-normal);
+    flex-shrink: 0;
 }
 
 .logo-img:hover {
@@ -181,6 +184,9 @@ p {
     margin: 0;
     font-size: var(--font-size-xl);
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .nav-menu {
