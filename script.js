@@ -1,6 +1,7 @@
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
+// Prefer id-based lookup for more specific selection and fallback to class-based if missing
+const navMenu = document.getElementById('nav-menu') || document.querySelector('.nav-menu');
 
 if (hamburger) {
     hamburger.addEventListener('click', () => {
@@ -11,6 +12,13 @@ if (hamburger) {
     });
 
     // Ensure keyboard activation works (button handles Enter/Space by default). Keep pointer cursor.
+    // Extra keyboard support: toggle on Enter/Space for broader compatibility
+    hamburger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            hamburger.click();
+        }
+    });
 }
 
 // Close mobile menu when clicking on a link

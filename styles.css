@@ -214,6 +214,8 @@ p {
     border: none;
     padding: 0;
     margin: 0;
+    z-index: 1101; /* ensure hamburger sits above other content */
+    pointer-events: auto; /* allow pointer events explicitly */
 }
 
 .hamburger span {
@@ -222,6 +224,7 @@ p {
     background-color: var(--text-primary);
     margin: 3px 0;
     transition: var(--transition-fast);
+    display: block;
 }
 
 .hamburger:focus {
