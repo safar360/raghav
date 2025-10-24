@@ -8,7 +8,7 @@ if (hamburger) {
         const expanded = hamburger.getAttribute('aria-expanded') === 'true';
         hamburger.setAttribute('aria-expanded', String(!expanded));
         hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+        if (navMenu) navMenu.classList.toggle('active');
     });
 
     // Ensure keyboard activation works (button handles Enter/Space by default). Keep pointer cursor.
