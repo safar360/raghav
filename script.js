@@ -557,7 +557,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize carousel
     updateDots();
     updateButtons();
+    initHeroCarousel();
 });
+
+// Hero carousel auto-scroll
+function initHeroCarousel() {
+    const track = document.querySelector('.carousel-track');
+    if (!track) return;
+
+    const items = track.querySelectorAll('.carousel-item');
+    let index = 0;
+    const gap = 12; // must match CSS gap
+
+    function update() {
+        if (items.length === 0) return;
+        const itemWidth = items[0].getBoundingClientRect().width + gap;
+        const maxIndex = items.length - Math.floor(track.parentElement.clientWidth / itemWidth);
+        // keep index in range
+        if (index > maxIndex) index = 0;
+        const translateX = -index * itemWidth;
+        track.style.transform = `translateX(${translateX}px)`;
+        index++;
+    }
+
+    let timer = setInterval(update, 3000);
+
+    // Pause on hover
+    track.parentElement.addEventListener('mouseenter', () => clearInterval(timer));
+    track.parentElement.addEventListener('mouseleave', () => { timer = setInterval(update, 3000); });
+
+    // Run first update after small delay to compute dimensions
+    setTimeout(update, 500);
+}
 
 // Add print button to footer (optional)
 document.addEventListener('DOMContentLoaded', () => {
