@@ -143,7 +143,7 @@ p {
     right: 0;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 9999; /* bring header above other content */
     box-shadow: var(--shadow-light);
 }
 
@@ -212,10 +212,12 @@ p {
     cursor: pointer;
     background: none;
     border: none;
-    padding: 0;
+    padding: 8px; /* increase hit area */
     margin: 0;
-    z-index: 1101; /* ensure hamburger sits above other content */
+    z-index: 10001; /* ensure hamburger sits above other content */
     pointer-events: auto; /* allow pointer events explicitly */
+    position: relative;
+    border-radius: 6px;
 }
 
 .hamburger span {
