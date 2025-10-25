@@ -1253,6 +1253,19 @@ p {
     .hamburger {
         display: flex;
     }
+
+    /* Improve touch responsiveness on mobile and provide subtle focus feedback */
+    .hamburger {
+        -webkit-tap-highlight-color: rgba(0,0,0,0.12);
+        touch-action: manipulation;
+        padding: 12px; /* slightly larger hit area on mobile */
+    }
+
+    .hamburger.debug-active,
+    .hamburger:active,
+    .hamburger:focus {
+        background: rgba(217,119,6,0.08);
+    }
     
     .nav-menu {
         position: fixed;

@@ -19,6 +19,20 @@ if (hamburger) {
             hamburger.click();
         }
     });
+
+    // Debug: log pointer/touch events to help diagnose taps not reaching the button on devices
+    ['pointerdown', 'touchstart', 'mousedown', 'click'].forEach(ev => {
+        hamburger.addEventListener(ev, (e) => {
+            try {
+                console.log(`hamburger event: ${ev}`);
+                // brief visual flash to indicate an event was received
+                hamburger.classList.add('debug-active');
+                setTimeout(() => hamburger.classList.remove('debug-active'), 180);
+            } catch (err) {
+                // ignore
+            }
+        }, { passive: true });
+    });
 }
 
 // Close mobile menu when clicking on a link
